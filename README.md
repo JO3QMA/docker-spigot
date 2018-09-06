@@ -13,6 +13,6 @@ Build Spigot Server on Docker.
 ## Install
 `# docker build -t {image_name} ./Dockerfile --build-arg VERSION={version}`
 ## Usage
-`# docker run --name {container} -p 25565:25565 {image_name}`
+`# docker run --name {container} -p 25565:25565 -v {data_path}:/data {image_name}`
 
 `# docker start {container}`

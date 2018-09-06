@@ -5,7 +5,7 @@ MAINTAINER jo3qma
 ARG VERSION=latest
 
 RUN echo Build Spigot Version: $VERSION && \
-  mkdir -p /opt/spigot
+  mkdir -p /opt/spigot /data
 WORKDIR /opt/spigot
 #COPY . .
 RUN \
@@ -15,15 +15,14 @@ RUN \
   java -jar BuildTools.jar  -rev $VERSION && \
   rm -rf ./BuildData/ ./Bukkit/ ./CraftBukkit/ ./Spigot/ ./apache-maven-3.5.0/ ./work/ && \
   rm BuildTools.jar BuildTools.log.txt  craftbukkit*.jar && \
-  echo eula=true > eula.txt && \
   mv spigot-*.jar spigot.jar && \
 ## Make Minecraft User
   useradd -s /bin/bash spigot -d /opt/spigot && \
-  chown spigot:spigot /opt/spigot -R
-
+  chown spigot:spigot /opt/spigot -R && \
+  chown spigot:spigot /data -R
 USER spigot
+WORKDIR /data
 
-RUN ls -l
 ## Minecraft Default Port  
 EXPOSE 25565
-CMD java -jar spigot.jar nogui
+CMD java -jar /opt/spigot/spigot.jar nogui
