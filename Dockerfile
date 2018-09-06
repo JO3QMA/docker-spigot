@@ -4,7 +4,7 @@ MAINTAINER jo3qma
 ## ARG
 ARG VERSION=latest
 
-RUN echo "Build Spigot Version: ${VERSION}"
+RUN echo Build Spigot Version: $VERSION && \
   mkdir -p /opt/spigot
 WORKDIR /opt/spigot
 #COPY . .
@@ -12,7 +12,7 @@ RUN \
   pacman -Sy && \
   pacman -S jdk8-openjdk git wget --noconfirm && \
   wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar && \
-  java -jar BuildTools.jar  -rev 1.13.1 && \
+  java -jar BuildTools.jar  -rev $VERSION && \
   rm -rf ./BuildData/ ./Bukkit/ ./CraftBukkit/ ./Spigot/ ./apache-maven-3.5.0/ ./work/ && \
   rm BuildTools.jar BuildTools.log.txt  craftbukkit*.jar && \
   echo eula=true > eula.txt && \
