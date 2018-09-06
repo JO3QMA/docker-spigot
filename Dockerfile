@@ -1,12 +1,12 @@
 FROM base/archlinux:latest
 MAINTAINER jo3qma
 
-## ENV
-#ENV VERSION=latest
+## ARG
+ARG VERSION=latest
 
-RUN mkdir -p /opt/spigot
+RUN echo "Build Spigot Version: ${VERSION}"
+  mkdir -p /opt/spigot
 WORKDIR /opt/spigot
-VOLUME [ "/data" ]
 #COPY . .
 RUN \
   pacman -Sy && \
@@ -26,4 +26,4 @@ USER spigot
 RUN ls -l
 ## Minecraft Default Port  
 EXPOSE 25565
-CMD ["java", "-jar spigot.jar", "nogui" ]
+CMD java -jar spigot.jar nogui
