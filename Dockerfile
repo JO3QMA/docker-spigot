@@ -21,12 +21,10 @@ RUN \
   wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar && \
   java -jar BuildTools.jar  -rev $VERSION && \
   ## Remove Build garbage
-  rm -rf ./BuildData/ ./Bukkit/ ./CraftBukkit/ ./Spigot/ ./apache-maven-3.5.0/ ./work/ && \
+  rm -rf ./BuildData/ ./Bukkit/ ./CraftBukkit/ ./Spigot/ ./apache-maven-*/ ./work/ && \
   rm BuildTools.jar BuildTools.log.txt  craftbukkit*.jar && \
   ## Rename spigot-version.jar to spigot.jar
   mv spigot-*.jar spigot.jar && \
-  ## Delete orphans package
-  pacman -Rs $(pacman -Qdtq) --noconfirm && \
   ## Delete pacman Cache
   pacman -Scc --noconfirm && \
   ## Make Minecraft User
