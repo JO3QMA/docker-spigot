@@ -1,5 +1,5 @@
 FROM base/archlinux:latest
-MAINTAINER jo3qma
+
 
 ## Open Port
 EXPOSE 25565
@@ -31,7 +31,6 @@ RUN \
   useradd -s /bin/bash spigot -d /opt/spigot && \
   chown spigot:spigot /opt/spigot -R && \
   chown spigot:spigot /data -R
-USER spigot
+#USER spigot
 WORKDIR /data
-
-CMD java -jar /opt/spigot/spigot.jar nogui
+CMD java -Dcom.mojang.eula.agree=true -jar /opt/spigot/spigot.jar nogui
