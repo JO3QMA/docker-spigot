@@ -11,7 +11,7 @@ RUN echo Build Spigot Version: $VERSION && \
   set -x && \
   mkdir -p /opt/spigot /data
 WORKDIR /opt/spigot
-#COPY . .
+COPY spigot-start.sh .
 RUN \
   ## Update Repos
   pacman -Syy && \
@@ -29,8 +29,10 @@ RUN \
   pacman -Scc --noconfirm && \
   ## Make Minecraft User
   useradd -s /bin/bash spigot -d /opt/spigot && \
+  chmod -R 775 /opt/spigot && \
   chown spigot:spigot /opt/spigot -R && \
   chown spigot:spigot /data -R
-#USER spigot
+USER spigot
 WORKDIR /data
-CMD java -Dcom.mojang.eula.agree=true -jar /opt/spigot/spigot.jar nogui
+#CMD /opt/spigot/spigot-start.sh
+CMD [ "/usr/bin/java", "-jar", "/opt/spigot/spigot.jar"]
