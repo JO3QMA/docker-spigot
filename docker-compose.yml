@@ -1,11 +1,23 @@
-version: "3.3"
+version: "3.8"
 services:
-  spigot:
+  public_paper:
     build:
       context: .
-      args:
-        - VERSION=1.13.1
-    ports:
-      - 25565:25565
     volumes:
-      - ./data:/data:z
+      - ./data/public_paper:/data
+    environment:
+      - PAPER_VERSION=1.13.1
+      - EULA=TRUE
+      - JAVA_OPTS="-Xms1G -Xmx1G"
+  private_paper:
+    build:
+      context: .
+    volumes:
+      - ./data/private_paper:/data
+    environment:
+      - PAPER_VERSION=1.13.1
+      - EULA=TRUE
+  public_overviewer:
+  private_overviewer:
+  nginx:
+  buckup:
